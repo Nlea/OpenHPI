@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/fc381c81f0894305a578b311f337bb75.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" id="id-55c766918c584786ac524874d4a4aa92" name="Determine eligibility for insurance" namespace="http://www.signavio.com/dmn/1.1/diagram/fc381c81f0894305a578b311f337bb75.xml" exporterVersion="12.12.2" sigExt:revisionId="03e0fbfe8452405396de02a059495517" sigExt:revisionNumber="7">
+  <extensionElements>
+    <sigExt:diagramMetaData name="processvaliduntil" value="" />
+    <sigExt:diagramMetaData name="englisch" value="" />
+  </extensionElements>
+  <itemDefinition id="id-eb232df379033d7097251459e129db39" label="Driver Eligibility" name="driverEligibility">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"Insurable","Uninsurable","Restricted insurable"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-7bd36307cffb0a891be0449c9ac1bd4a" label="Driving Record category" name="drivingRecordCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"High Risk","Normal"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-50b5a7808a211ba877c7af3411306ce2" label="Eligibility Score" name="eligibilityScore">
+    <typeRef>feel:number</typeRef>
+    <allowedValues>
+      <text>&gt;=0.0</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-29333d0bb2109a55557b76810f012e24" label="Safe driving training attended?" name="safeDrivingTrainingAttended">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"No","Yes"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-0fa90ee6d0ce2252bf7f8099e1089879" label="Insurance Eligibilty" name="insuranceEligibilty">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"eligible for insurance","reviewing necessary","not eligible for insurance"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-e2e9ad625022d7612ef3d9fedcb3c190" label="Number of (involved) accidents" name="numberOfInvolvedAccidents">
+    <typeRef>feel:number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-7aeb536c142f48b097b5a5823e34b1a6" label="Automobile Eligibility" name="automobileEligibility">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"not eligible","provisional","eligible"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-933cfd4663f5ecf358938d8f18babf63" label="Driver Category" name="driverCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"Typical Driver","Novice Driver","Experienced Driver"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-6d313e9c56e6ac854995edc6e6f4d856" label="Ptential Theft Rating" name="ptentialTheftRating">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"high","moderate","low"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-97335b2dd9889748bc29287dfe36cdf3" label="listed as &#39;High Theft Probability&#39;?" name="listedAsHighTheftProbability">
+    <typeRef>feel:boolean</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-5933ed27a25014041383333eebae2dbb" label="Convicted of a DUI?" name="convictedOfADui">
+    <typeRef>feel:boolean</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-e6acdc09a73018dfb5d1aa010d83cf8a" label="Occupant Injury Category" name="occupantInjuryCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"extremely high","high","moderate","low"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-b6940eb9faf2271bcc7a537a7fb5020c" label="Number of moving violations" name="numberOfMovingViolations">
+    <typeRef>feel:number</typeRef>
+    <allowedValues>
+      <text>&gt;=0.0</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-b0cad351a82251e91a33452173164f52" label="Driver Eligibility" name="driverEligibility2">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"Insurable","Uninsurable","Restricted insurable"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-53ccc5b588c9e6765b23ab3214df22f5" label="Automobile Eligibility" name="automobileEligibility2">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"not eligible","provisional","eligible"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-474daac52b8ee1878dda5596b78f54c0" label=" Age" name="age">
+    <typeRef>feel:number</typeRef>
+    <allowedValues>
+      <text>&gt;=0.0</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-0074f2b2c6dbe79ffd2cb5c7bb56f720" label="Driver Age Category" name="driverAgeCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"Typical Driver","Novice Driver","Experienced Driver"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-ca4f00b1d9c7e67f5fd94d748581daca" label="Driving Record Category" name="drivingRecordCategory2">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"High Risk","Normal"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-6d7fd386e71408f9f7094e5ed6651d84" label="Airbag equipment" name="airbagEquipment">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"no airbags","drivers airbag","drivers+front passenger airbag","front complete + side panel airbags"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-f07060da5884d179fce10a7fc437d3ee" label="Potential Theft Rating" name="potentialTheftRating">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"high","moderate","low"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-f5e6b055dbc53e2bd2a83bb844c3b578" label="Eligibilty Scoring&#10;" name="eligibiltyScoring">
+    <typeRef>feel:number</typeRef>
+    <allowedValues>
+      <text>&gt;=0.0</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-ebf6b11188f78400444fd5d3977ce171" label="Potential Occupant Injury Category" name="potentialOccupantInjuryCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"extremely high","high","moderate","low"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-b725e76067b6d2e110ab3955cd6374e5" label="Car&#39;s value" name="carsValue">
+    <typeRef>feel:number</typeRef>
+    <allowedValues>
+      <text>&gt;=0.0</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-52951763e9acd51d466d39d490f22f70" label="Determine eligibility for insurance" name="determineEligibilityForInsurance">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"eligible for insurance","reviewing necessary","not eligible for insurance"</text>
+    </allowedValues>
+  </itemDefinition>
+  <inputData id="id-fa152da9bb32997c840d431c7bb4df43" label=" Age" name="age" sigExt:shapeId="sid-CB6D971C-478F-4076-A2BC-774348BA68F7" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-fa152da9bb32997c840d431c7bb4df43_variable" name="age" typeRef="sig:age" />
+  </inputData>
+  <inputData id="id-d3e80c07f30e2680726d09ad65ffa255" label="Number of moving violations" name="numberOfMovingViolations" sigExt:shapeId="sid-89C7D131-8F0E-4BD5-8A71-19E1EA9A0AEA" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-d3e80c07f30e2680726d09ad65ffa255_variable" name="numberOfMovingViolations" typeRef="sig:numberOfMovingViolations" />
+  </inputData>
+  <inputData id="id-7832e65c0fddc1cd9b8dd052d0313910" label="Convicted of a DUI?" name="convictedOfADui" sigExt:shapeId="sid-3881EA34-7779-483B-AC95-CB453E94BAF3" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-7832e65c0fddc1cd9b8dd052d0313910_variable" name="convictedOfADui" typeRef="sig:convictedOfADui" />
+  </inputData>
+  <inputData id="id-bf6d9c956380ae37a67dd8b0f2949513" label="listed as &#39;High Theft Probability&#39;?" name="listedAsHighTheftProbability" sigExt:shapeId="sid-B2330DF6-D5FF-4E64-8D59-2A57CA52CD8B" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-bf6d9c956380ae37a67dd8b0f2949513_variable" name="listedAsHighTheftProbability" typeRef="sig:listedAsHighTheftProbability" />
+  </inputData>
+  <inputData id="id-81500f5840258034670b9832f6513c79" label="Number of (involved) accidents" name="numberOfInvolvedAccidents" sigExt:shapeId="sid-65D8F9BC-F051-4AA1-89BB-8C6230265FB8" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-81500f5840258034670b9832f6513c79_variable" name="numberOfInvolvedAccidents" typeRef="sig:numberOfInvolvedAccidents" />
+  </inputData>
+  <inputData id="id-ffa5535116832ab36926dc4d8ee80619" label="Safe driving training attended?" name="safeDrivingTrainingAttended" sigExt:shapeId="sid-74056069-368C-4CAB-A992-B7712C30A84F" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-ffa5535116832ab36926dc4d8ee80619_variable" name="safeDrivingTrainingAttended" typeRef="sig:safeDrivingTrainingAttended" />
+  </inputData>
+  <inputData id="id-0867e2b3e117ca9e22bc290427c56d21" label="Car&#39;s value" name="carsValue" sigExt:shapeId="sid-C9276388-BA24-4964-95FE-A59CA70C5650" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-0867e2b3e117ca9e22bc290427c56d21_variable" name="carsValue" typeRef="sig:carsValue" />
+  </inputData>
+  <inputData id="id-0a103043cc99fb7543a25b43241cc3db" label="Airbag equipment" name="airbagEquipment" sigExt:shapeId="sid-B4D4B2BB-CBEC-457C-A989-BBFF4C363AF8" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="externalsource" value="" />
+    </extensionElements>
+    <variable id="id-0a103043cc99fb7543a25b43241cc3db_variable" name="airbagEquipment" typeRef="sig:airbagEquipment" />
+  </inputData>
+  <decision id="id-51b3a010927f87aca649eb97d7c8191b" label="Automobile Eligibility" name="automobileEligibility" sigExt:shapeId="sid-FAC0AA54-0781-465D-982E-54B4E4B46C4B" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-51b3a010927f87aca649eb97d7c8191b_variable" name="automobileEligibility" typeRef="sig:automobileEligibility" />
+    <informationRequirement>
+      <requiredDecision href="#id-7016759d50131318479b9e79325cc8cf" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#id-5db2cbf9c1e880c65d3e8ef64252a40a" />
+    </informationRequirement>
+    <authorityRequirement>
+      <requiredAuthority href="#id-a9240b1defca5a67f85e68a4a54dc0a1" />
+    </authorityRequirement>
+    <decisionTable hitPolicy="FIRST">
+      <input id="id-a1e4d9282b96088ca3ce4a63ca138739" label="Potential Occupant Injury Category">
+        <inputExpression>
+          <text>potentialOccupantInjuryCategory</text>
+        </inputExpression>
+      </input>
+      <input id="id-3d9d62399b4475e8386c94c1b1f5a3b8" label="Potential Theft Rating">
+        <inputExpression>
+          <text>potentialTheftRating</text>
+        </inputExpression>
+      </input>
+      <output id="id-c140fec8a6d0a792e3e643105e1fae20" label="Automobile Eligibility" name="automobileEligibility" typeRef="sig:automobileEligibility2" />
+      <rule id="id-2ff7cf35cf510ac0d8aef2da259d7886">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"extremely high"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-bee2b9cb0936615320d63acfcec4f9ec">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"provisional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-1ecc8b44ea437b9c47fa505a31d3f57e">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"provisional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-f2d7d96939b16b134f72c1d2192e2995">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"eligible"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-7016759d50131318479b9e79325cc8cf" label="Potential Theft Rating" name="potentialTheftRating" sigExt:shapeId="sid-49E5EF18-B439-4C25-9B33-BC4F0DCC7F8A" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-7016759d50131318479b9e79325cc8cf_variable" name="potentialTheftRating" typeRef="sig:potentialTheftRating" />
+    <informationRequirement>
+      <requiredInput href="#id-bf6d9c956380ae37a67dd8b0f2949513" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-0867e2b3e117ca9e22bc290427c56d21" />
+    </informationRequirement>
+    <decisionTable>
+      <input id="id-b658e8f492895e08d1e062cdae724a3a" label="listed as &#39;High Theft Probability&#39;?">
+        <inputExpression>
+          <text>listedAsHighTheftProbability</text>
+        </inputExpression>
+      </input>
+      <input id="id-97b86505abbd1aeb1a9ddd467ee977de" label="Car&#39;s value">
+        <inputExpression>
+          <text>carsValue</text>
+        </inputExpression>
+      </input>
+      <output id="id-73b6b1239b5165bb1b43de13d6ca4708" label="Potential Theft Rating" name="potentialTheftRating" typeRef="sig:ptentialTheftRating" />
+      <rule id="id-5a24d2cc6957f7f5180f97174d911e0f">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-2279790a2fc5dd808978697af1766bf3">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&gt; 45000</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-60bb96d8733641431a865cf3ba292ed7">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>[20000..45000]</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"moderate"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-bee4146d64ede3c069ef0d0b1a83d470">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt; 20000</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"low"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-9294407b6945b562ddc245d5e27dd812" label="Determine eligibility for insurance" name="determineEligibilityForInsurance" sigExt:shapeId="sid-A5F454AC-DDAA-4548-899D-5B27E75D48E9" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-9294407b6945b562ddc245d5e27dd812_variable" name="determineEligibilityForInsurance" typeRef="sig:determineEligibilityForInsurance" />
+    <informationRequirement>
+      <requiredInput href="#id-fa152da9bb32997c840d431c7bb4df43" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#id-27d50a6b459f5d6a20e14b39f211061c" />
+    </informationRequirement>
+    <authorityRequirement>
+      <requiredAuthority href="#id-0cd19b964b56b9e74139834bb0b5d4e6" />
+    </authorityRequirement>
+    <decisionTable>
+      <input id="id-3e883da10e30a2f3b710705c0b6ad8f6" label=" Age">
+        <inputExpression>
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <input id="id-9ea104371029b6e77c955ab27e7c6728" label="Eligibilty Scoring&#10;">
+        <inputExpression>
+          <text>eligibiltyScoring</text>
+        </inputExpression>
+      </input>
+      <output id="id-6d4e220501cfb878e1d737b1d05979d5" label="Determine eligibility for insurance" name="determineEligibilityForInsurance" typeRef="sig:insuranceEligibilty" />
+      <rule id="id-7ad9e8c39d96ef03b6e83ce09bcba50f">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&gt;= 18</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt; 100</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"eligible for insurance"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-cfa74d696ecfb2cd50a75be2eb4d7f06">
+        <description>string("must be reviewed by the manager")</description>
+        <inputEntry>
+          <text>&gt;= 18</text>
+        </inputEntry>
+        <inputEntry>
+          <text>[100..150]</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"reviewing necessary"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-ce1faa88905091a6e432cb93647ebad9">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&gt;= 18</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&gt; 150</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"not eligible for insurance"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-53d6863b27c8220fba932535e21dc929">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&lt; 18</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"not eligible for insurance"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-5db2cbf9c1e880c65d3e8ef64252a40a" label="Potential Occupant Injury Category" name="potentialOccupantInjuryCategory" sigExt:shapeId="sid-55F8077D-7F9A-4985-8A1B-D38E6E5E0BF6" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-5db2cbf9c1e880c65d3e8ef64252a40a_variable" name="potentialOccupantInjuryCategory" typeRef="sig:potentialOccupantInjuryCategory" />
+    <informationRequirement>
+      <requiredInput href="#id-0a103043cc99fb7543a25b43241cc3db" />
+    </informationRequirement>
+    <decisionTable hitPolicy="FIRST">
+      <input id="id-4421ed2b896d53b57e6cdf9b7c973976" label="Airbag equipment">
+        <inputExpression>
+          <text>airbagEquipment</text>
+        </inputExpression>
+      </input>
+      <output id="id-73f862c110a641b7fa14a4a651962578" label="Potential Occupant Injury Category" name="potentialOccupantInjuryCategory" typeRef="sig:occupantInjuryCategory" />
+      <rule id="id-d6db36a13b3f2476f7e3bcfc22491e8a">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"no airbags"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"extremely high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-f841cb55e49af446c8a4980fe1436c89">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"drivers airbag"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-528350ff9897578330d5a4bb21342c81">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"drivers+front passenger airbag"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"moderate"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-f767af21da42c3d870126ea92d04dbaa">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"front complete + side panel airbags"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"low"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-23a6638f46f50afc324df9bead5b45a4">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"extremely high"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-df116f2214547d57fedc084e9fb56970" label="Driver Eligibility" name="driverEligibility" sigExt:shapeId="sid-D87B3CE5-6D4C-4700-9779-2AA1984580E3" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-df116f2214547d57fedc084e9fb56970_variable" name="driverEligibility" typeRef="sig:driverEligibility" />
+    <informationRequirement>
+      <requiredDecision href="#id-4ef4afd03664f39a5ba3b5eb9be7e0b7" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#id-79ec4a527616ad835fbc24666f2f0f04" />
+    </informationRequirement>
+    <authorityRequirement>
+      <requiredAuthority href="#id-f3d8a25e45fecc8d5f3e47cb2738fe18" />
+    </authorityRequirement>
+    <decisionTable>
+      <input id="id-96bd0c9a225324580cfc6bf139ce965c" label="Driving Record category">
+        <inputExpression>
+          <text>drivingRecordCategory</text>
+        </inputExpression>
+      </input>
+      <input id="id-898a6e4c43cf504d12cdf49d362a44a1" label="Driver Category">
+        <inputExpression>
+          <text>driverCategory</text>
+        </inputExpression>
+      </input>
+      <output id="id-ee12bec20019bef2acdc4e9a13c03c72" label="Driver Eligibility" name="driverEligibility" typeRef="sig:driverEligibility2" />
+      <rule id="id-75a6e84297734c6a631cc5e5703ea8a4">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"High Risk"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Uninsurable"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-01c20ba17e76e2605ae7a03cd2133f40">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"Normal"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Novice Driver","Experienced Driver"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Restricted insurable"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-beb9fe1b404dc0fed2cc6929c8e31b83">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"Normal"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Typical Driver"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Insurable"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-27d50a6b459f5d6a20e14b39f211061c" label="Eligibilty Scoring&#10;" name="eligibiltyScoring" sigExt:shapeId="sid-7759E4C4-A83B-4637-8777-EF703F5CD72A" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-27d50a6b459f5d6a20e14b39f211061c_variable" name="eligibiltyScoring" typeRef="sig:eligibiltyScoring" />
+    <informationRequirement>
+      <requiredDecision href="#id-51b3a010927f87aca649eb97d7c8191b" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#id-df116f2214547d57fedc084e9fb56970" />
+    </informationRequirement>
+    <decisionTable hitPolicy="COLLECT" aggregation="SUM">
+      <input id="id-1ad5ddc3d233ee6becbe080a84af4311" label="Automobile Eligibility">
+        <inputExpression>
+          <text>automobileEligibility</text>
+        </inputExpression>
+      </input>
+      <input id="id-9b1467f1e952edb91cde3c15a5b73bbb" label="Driver Eligibility">
+        <inputExpression>
+          <text>driverEligibility</text>
+        </inputExpression>
+      </input>
+      <output id="id-6d0dfef7c1b91f6adef18cefbbe21272" label="Eligibilty Scoring&#10;" name="eligibiltyScoring" typeRef="sig:eligibilityScore" />
+      <rule id="id-9af7234dce558190be9161244091bb6a">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"not eligible"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-39fc83877e0bc5b9c0b115a00d6d51a3">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"provisional"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-bee05d30a5d0c570bf475310c20944e6">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"eligible"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-5c20a8ee81b4736ed7b9397006e5a4f3">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Insurable"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-7113ce8be74a6f96e01e133750d9f568">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Restricted insurable"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>30</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-e1acf76028acecf3f14e2aa94f4d74cf">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Uninsurable"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>100</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-4ef4afd03664f39a5ba3b5eb9be7e0b7" label="Driver Category" name="driverCategory" sigExt:shapeId="sid-1B8035B3-A2B9-455F-B959-421CB4D23EA6" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-4ef4afd03664f39a5ba3b5eb9be7e0b7_variable" name="driverCategory" typeRef="sig:driverCategory" />
+    <informationRequirement>
+      <requiredInput href="#id-ffa5535116832ab36926dc4d8ee80619" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-fa152da9bb32997c840d431c7bb4df43" />
+    </informationRequirement>
+    <decisionTable hitPolicy="FIRST">
+      <input id="id-cd9c56ef62c186bb531479a6dc3a4ea3" label="Safe driving training attended?">
+        <inputExpression>
+          <text>safeDrivingTrainingAttended</text>
+        </inputExpression>
+      </input>
+      <input id="id-c415c72cccd306096aacbfe0a10e6658" label=" Age">
+        <inputExpression>
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <output id="id-894a07da7940300c1546525af8d14fba" label="Driver Category" name="driverCategory" typeRef="sig:driverAgeCategory" />
+      <rule id="id-435557e7a08457eec484ba4298a87fab">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"No"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt; 25</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Novice Driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-dc8f0a8b437f3c8ef1f25402e55361c0">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"No"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&gt;= 25</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Novice Driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-21691747a7fb32bdf28e798b07cd431b">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"Yes"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt; 21</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Experienced Driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-e2d987808002a0362418a6c1967cbdf3">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"Yes"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&gt;= 21</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Typical Driver"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-79ec4a527616ad835fbc24666f2f0f04" label="Driving Record category" name="drivingRecordCategory" sigExt:shapeId="sid-98B4D9FA-53E9-4873-BE12-874ABB33C2A5" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-79ec4a527616ad835fbc24666f2f0f04_variable" name="drivingRecordCategory" typeRef="sig:drivingRecordCategory" />
+    <informationRequirement>
+      <requiredInput href="#id-7832e65c0fddc1cd9b8dd052d0313910" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-81500f5840258034670b9832f6513c79" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-d3e80c07f30e2680726d09ad65ffa255" />
+    </informationRequirement>
+    <decisionTable>
+      <input id="id-eaf6db565ca6a6d0c771eccd3df1930f" label="Convicted of a DUI?">
+        <inputExpression>
+          <text>convictedOfADui</text>
+        </inputExpression>
+      </input>
+      <input id="id-30102031e3a2fea4a01559cb41a99359" label="Number of (involved) accidents">
+        <inputExpression>
+          <text>numberOfInvolvedAccidents</text>
+        </inputExpression>
+      </input>
+      <input id="id-36bbdf604d43f15b4b95062cb1c53b59" label="Number of moving violations">
+        <inputExpression>
+          <text>numberOfMovingViolations</text>
+        </inputExpression>
+      </input>
+      <output id="id-46e05bf43cf3e90ee0c2bcd85a29e4f6" label="Driving Record category" name="drivingRecordCategory" typeRef="sig:drivingRecordCategory2" />
+      <rule id="id-fcad723878499c562708328822f86c5b">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"High Risk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-5b2c8f8d92049b1112d8db98b66c2e95">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&gt; 4</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"High Risk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-a6e64d2175eac11e17e0acec407e74ce">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt;= 4</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&gt; 3</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"High Risk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-9a275e5380dc07a583fc8ad8dcca1cd7">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>false</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt;= 4</text>
+        </inputEntry>
+        <inputEntry>
+          <text>&lt;= 3</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"Normal"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <knowledgeSource id="id-0cd19b964b56b9e74139834bb0b5d4e6" label="Internal Guideline A" name="internalGuidelineA" locationURI="https://www.gesetze-im-internet.de/" />
+  <knowledgeSource id="id-f3d8a25e45fecc8d5f3e47cb2738fe18" label="Guideline C" name="guidelineC" />
+  <knowledgeSource id="id-a9240b1defca5a67f85e68a4a54dc0a1" label="Policy B" name="policyB" />
+</definitions>

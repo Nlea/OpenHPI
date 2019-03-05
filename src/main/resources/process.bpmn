@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
   <bpmn:collaboration id="Collaboration_1a9dmei">
     <bpmn:participant id="Participant_04l1gyj" name="Car-Insurance Company" processRef="Process_1arok4s" />
   </bpmn:collaboration>
@@ -10,7 +10,6 @@
       </bpmn:lane>
       <bpmn:lane id="Lane_0poamml" name="Case Worker">
         <bpmn:flowNodeRef>StartEvent_0ojsrcb</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ServiceTask_1xubfhf</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1v46h1r</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1tgzfov</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0jtsgry</bpmn:flowNodeRef>
@@ -27,24 +26,13 @@
         <bpmn:flowNodeRef>Task_1ac0995</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_15eyi6w</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_1l2tzfg</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_1xubfhf</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_0ojsrcb" name="Request&#10;for car insurance&#10;received">
       <bpmn:outgoing>SequenceFlow_158p9kz</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1ueltfq" />
     </bpmn:startEvent>
-    <bpmn:serviceTask id="ServiceTask_1xubfhf" name="Calculate &#10;annual premium" implementation="##WebService">
-      <bpmn:incoming>SequenceFlow_0navlkp</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0xyho2e</bpmn:outgoing>
-      <bpmn:ioSpecification>
-        <bpmn:dataOutput />
-        <bpmn:inputSet name="DefaultInputSet" />
-        <bpmn:outputSet name="DefaultOutputSet" />
-      </bpmn:ioSpecification>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_032pruc">
-        <bpmn:targetRef>DataObjectReference_1l4apw8</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="ExclusiveGateway_1v46h1r" name="Eligible?" gatewayDirection="Diverging">
       <bpmn:incoming>SequenceFlow_1osxifu</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1g5xhp1</bpmn:outgoing>
@@ -183,12 +171,24 @@
       <bpmn:incoming>SequenceFlow_1ak18zj</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hwxen2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:businessRuleTask id="ServiceTask_1l2tzfg" name="Check qualification for insurability" implementation="##WebService">
+    <bpmn:businessRuleTask id="ServiceTask_1l2tzfg" name="Check qualification for insurability" implementation="##WebService" camunda:decisionRef="/OpenHPI/src/main/resources/DetermineEligibilityForInsurance.dmn">
       <bpmn:incoming>SequenceFlow_158p9kz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1osxifu</bpmn:outgoing>
     </bpmn:businessRuleTask>
     <bpmn:sequenceFlow id="SequenceFlow_1osxifu" sourceRef="ServiceTask_1l2tzfg" targetRef="ExclusiveGateway_1v46h1r" />
     <bpmn:sequenceFlow id="SequenceFlow_158p9kz" sourceRef="StartEvent_0ojsrcb" targetRef="ServiceTask_1l2tzfg" />
+    <bpmn:businessRuleTask id="ServiceTask_1xubfhf" name="Calculate &#10;annual premium" implementation="##WebService" camunda:decisionRef="/OpenHPI/src/main/resources/CalculateAnnualPremium.dmn">
+      <bpmn:incoming>SequenceFlow_0navlkp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0xyho2e</bpmn:outgoing>
+      <bpmn:ioSpecification>
+        <bpmn:dataOutput />
+        <bpmn:inputSet name="DefaultInputSet" />
+        <bpmn:outputSet name="DefaultOutputSet" />
+      </bpmn:ioSpecification>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_032pruc">
+        <bpmn:targetRef>DataObjectReference_1l4apw8</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:businessRuleTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1a9dmei">
@@ -206,9 +206,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="-529" y="9" width="82" height="40" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1xubfhf_di" bpmnElement="ServiceTask_1xubfhf">
-        <dc:Bounds x="607" y="-48" width="123" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_1v46h1r_di" bpmnElement="ExclusiveGateway_1v46h1r" isMarkerVisible="true">
         <dc:Bounds x="-245" y="-28" width="40" height="40" />
@@ -349,12 +346,12 @@
         <di:waypoint x="973" y="-7" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0xyho2e_di" bpmnElement="SequenceFlow_0xyho2e">
-        <di:waypoint x="730" y="-8" />
-        <di:waypoint x="804" y="-8" />
+        <di:waypoint x="719" y="-8" />
+        <di:waypoint x="816" y="-8" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0navlkp_di" bpmnElement="SequenceFlow_0navlkp">
-        <di:waypoint x="566" y="-7" />
-        <di:waypoint x="607" y="-8" />
+        <di:waypoint x="565" y="-7" />
+        <di:waypoint x="619" y="-9" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1q8se5e_di" bpmnElement="SequenceFlow_1q8se5e">
         <di:waypoint x="-205" y="-8" />
@@ -462,6 +459,9 @@
         <di:waypoint x="-473" y="-8" />
         <di:waypoint x="-396" y="-8" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_0bvb6d3_di" bpmnElement="ServiceTask_1xubfhf">
+        <dc:Bounds x="619" y="-48" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

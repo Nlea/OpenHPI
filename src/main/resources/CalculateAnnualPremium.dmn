@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:sig="http://www.signavio.com/dmn/1.1/diagram/0981610943aa4b7e8e1bf26df7a0c042.xml" xmlns:sigExt="http://www.signavio.com/schema/dmn/1.1/" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" id="id-1d9551ca8ece4bd1830fa87ea21a3e8a" name="calculate annual premium" namespace="http://www.signavio.com/dmn/1.1/diagram/0981610943aa4b7e8e1bf26df7a0c042.xml" exporterVersion="12.12.2" sigExt:revisionId="c3811121e5f144b7837fdf262015c7b4" sigExt:revisionNumber="10">
+  <extensionElements>
+    <sigExt:diagramMetaData name="processvaliduntil" value="" />
+    <sigExt:diagramMetaData name="englisch" value="" />
+  </extensionElements>
+  <itemDefinition id="id-cc7e0acb3da0a6d1409f58bfd55a3960" label="Driver category" name="driverCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"novice driver","typical driver","senior driver"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-76f6717fc6093308a54e00f974d8b2f2" label="Country of Issue" name="countryOfIssue">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"Switzerland","USA","EU Drivers Licence","Other Countries"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-c67d5ab72477270a558f77ec2c54c913" label="Drivers age" name="driversAge">
+    <typeRef>feel:number</typeRef>
+    <allowedValues>
+      <text>&gt;=0.0</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-565c6fb5c8d5f4596338dd72212eb264" label="Model year of the car" name="modelYearOfTheCar">
+    <typeRef>feel:date</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-5d42361501bc6a72b2ab0bb220f0f0e5" label=" Calculate annual premium" name="calculateAnnualPremium">
+    <typeRef>feel:number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-b404054690a3728e89b710c9b8f8c2c4" label="Age category" name="ageCategory">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"novice driver","typical driver","senior driver"</text>
+    </allowedValues>
+  </itemDefinition>
+  <itemDefinition id="id-1dc17cf05841c400423bb8cd654c50bd" label="Drivers premium" name="driversPremium">
+    <typeRef>feel:number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-6d7b31e99df3359cbdbd8184d4279a11" label="Calculate premium for car model&#10;" name="calculatePremiumForCarModel">
+    <typeRef>feel:number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-4c12d22b0af0982244408f447ac920f0" label="Premium for car model" name="premiumForCarModel">
+    <typeRef>feel:number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-84f121d044c2cb06cfbc5d7738976a2c" label="Calculate driver premium" name="calculateDriverPremium">
+    <typeRef>feel:number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="id-be73fffd0a84b2063ffce563b4154704" label="Type of car" name="typeOfCar">
+    <typeRef>feel:string</typeRef>
+    <allowedValues>
+      <text>"compact car","sedan","luxury car"</text>
+    </allowedValues>
+  </itemDefinition>
+  <inputData id="id-b15d4cfc10ea63bb46a8e493fa1d1e0a" label="Type of car" name="typeOfCar" sigExt:shapeId="sid-42B74B07-6CFF-489C-955D-38D1EA2D8DBC" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements />
+    <variable id="id-b15d4cfc10ea63bb46a8e493fa1d1e0a_variable" name="typeOfCar" typeRef="sig:typeOfCar" />
+  </inputData>
+  <inputData id="id-520e68ef783c967f5906db26a3f67ecf" label="Model year of the car" name="modelYearOfTheCar" sigExt:shapeId="sid-16AFA905-C180-414B-A83D-5233A2D7C6E2" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements />
+    <variable id="id-520e68ef783c967f5906db26a3f67ecf_variable" name="modelYearOfTheCar" typeRef="sig:modelYearOfTheCar" />
+  </inputData>
+  <inputData id="id-0f2e3d255ae8bbb8d735416443cc4a10" label="Country of Issue" name="countryOfIssue" sigExt:shapeId="sid-DA503246-0D0F-4ACE-8EB0-3E7B63C5C825" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements />
+    <variable id="id-0f2e3d255ae8bbb8d735416443cc4a10_variable" name="countryOfIssue" typeRef="sig:countryOfIssue" />
+  </inputData>
+  <inputData id="id-5c21aed7fa3d87091f4183199a1d96da" label="Drivers age" name="driversAge" sigExt:shapeId="sid-2603B2EB-FD75-4D25-A336-E1D07651F3EC" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements />
+    <variable id="id-5c21aed7fa3d87091f4183199a1d96da_variable" name="driversAge" typeRef="sig:driversAge" />
+  </inputData>
+  <decision id="id-a5204e9399b3fd5b1b2b01f378005967" label="Calculate driver premium" name="calculateDriverPremium" sigExt:shapeId="sid-A9C820BB-7719-47B3-AB0D-59AE54168005" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-a5204e9399b3fd5b1b2b01f378005967_variable" name="calculateDriverPremium" typeRef="sig:calculateDriverPremium" />
+    <informationRequirement>
+      <requiredInput href="#id-0f2e3d255ae8bbb8d735416443cc4a10" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#id-6b6d2b1d3ef6ce8bc81f833ae6f42dcb" />
+    </informationRequirement>
+    <decisionTable hitPolicy="FIRST">
+      <input id="id-080df6d542a77a2befe3d3b1ff1c6ec3" label="Driver category">
+        <inputExpression>
+          <text>driverCategory</text>
+        </inputExpression>
+      </input>
+      <input id="id-3e626a63efd6a8d40c9298a07c6b0c04" label="Country of Issue">
+        <inputExpression>
+          <text>countryOfIssue</text>
+        </inputExpression>
+      </input>
+      <output id="id-ef3a4df24f652339313726bbfed23b8a" label="Calculate driver premium" name="calculateDriverPremium" typeRef="sig:driversPremium" />
+      <rule id="id-d0e3704448c724c2b4708b49e4ecdaa6">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"novice driver"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"USA"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>720</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-07b125fe6a7f33862eab0117b4f3353d">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"novice driver"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Switzerland","EU Drivers Licence"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>500</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-0c3d68bf5e68c915dd9d212c73046e32">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"senior driver"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"USA"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>500</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-fec0b60b5c41dbc54940830c8393a70a">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>"senior driver"</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"Other Countries"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>300</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-b5fb53a739b4c281ab73ce6cd66c2f7a">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>100</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-aac89a866a8b6655dfeeb21e0781a228" label=" Calculate annual premium" name="calculateAnnualPremium" sigExt:shapeId="sid-EE9A95C9-985F-4459-AA6B-C26CFE7A3480" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-aac89a866a8b6655dfeeb21e0781a228_variable" name="calculateAnnualPremium" typeRef="sig:calculateAnnualPremium" />
+    <informationRequirement>
+      <requiredDecision href="#id-a5204e9399b3fd5b1b2b01f378005967" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#id-bc4d64bb2459238ae02a8035ea1959d3" />
+    </informationRequirement>
+    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+      <text>(calculateDriverPremium+calculatePremiumForCarModel)</text>
+    </literalExpression>
+  </decision>
+  <decision id="id-6b6d2b1d3ef6ce8bc81f833ae6f42dcb" label="Driver category" name="driverCategory" sigExt:shapeId="sid-836EE45F-12BB-4095-AEA4-12C4A487DB0D" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-6b6d2b1d3ef6ce8bc81f833ae6f42dcb_variable" name="driverCategory" typeRef="sig:driverCategory" />
+    <informationRequirement>
+      <requiredInput href="#id-5c21aed7fa3d87091f4183199a1d96da" />
+    </informationRequirement>
+    <decisionTable hitPolicy="FIRST">
+      <input id="id-709e9a8da69af1efd461761ebbfcf488" label="Drivers age">
+        <inputExpression>
+          <text>driversAge</text>
+        </inputExpression>
+      </input>
+      <output id="id-b020258588a0a677c903a8fdf3d0d224" label="Driver category" name="driverCategory" typeRef="sig:ageCategory" />
+      <rule id="id-1bda2e8b5891a0bad49d607a86ca239b">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&lt; 21</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"novice driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-89d49e37d5cf763afafc2d7328d2554b">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&gt; 70</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"senior driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-51081ec0920810bd1ec2010b9b9bd18e">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>"typical driver"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="id-bc4d64bb2459238ae02a8035ea1959d3" label="Calculate premium for car model&#10;" name="calculatePremiumForCarModel" sigExt:shapeId="sid-9871E80E-9250-4E4B-BF59-657D27770ACD" sigExt:diagramId="0981610943aa4b7e8e1bf26df7a0c042">
+    <extensionElements>
+      <sigExt:diagramMetaData name="decisionmaker" value="" />
+      <sigExt:diagramMetaData name="decisionowner" value="" />
+    </extensionElements>
+    <variable id="id-bc4d64bb2459238ae02a8035ea1959d3_variable" name="calculatePremiumForCarModel" typeRef="sig:calculatePremiumForCarModel" />
+    <informationRequirement>
+      <requiredInput href="#id-b15d4cfc10ea63bb46a8e493fa1d1e0a" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#id-520e68ef783c967f5906db26a3f67ecf" />
+    </informationRequirement>
+    <decisionTable hitPolicy="COLLECT" aggregation="SUM">
+      <input id="id-fd0ba877b77046e7f3a60b1654ec13d3" label="">
+        <inputExpression>
+          <text>yearDiff(modelYearOfTheCar, today())</text>
+        </inputExpression>
+      </input>
+      <input id="id-35f87404d130103c975ea671200f0454" label="Type of car">
+        <inputExpression>
+          <text>typeOfCar</text>
+        </inputExpression>
+      </input>
+      <output id="id-b6d0505afc425e7e9b9b9b9f54a18429" label="Calculate premium for car model&#10;" name="calculatePremiumForCarModel" typeRef="sig:premiumForCarModel" />
+      <rule id="id-d473f3370014ef517ab3b2b01bad9e6c">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&lt; 1</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>500</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-7a9ea56604155a145971ced18e60e724">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>[1..5]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>300</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-f4a1be106521d9a0599f69a9d88a1349">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>(5..10]</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>250</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-723718fbfb6d59857494437becad2019">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>&gt; 10</text>
+        </inputEntry>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <outputEntry>
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-4bd97d2fe61c3f1ae6c57af3570e6f07">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"compact car"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>300</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-dc222c7fbc425d22e5d913361e171a40">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"sedan"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>400</text>
+        </outputEntry>
+      </rule>
+      <rule id="id-f821da1f8102f6e93034ae5e92271609">
+        <description>string(-)</description>
+        <inputEntry>
+          <text>-</text>
+        </inputEntry>
+        <inputEntry>
+          <text>"luxury car"</text>
+        </inputEntry>
+        <outputEntry>
+          <text>500</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <knowledgeSource id="id-a447b0d35deb89626cf7bdf9baf91f70" label="Internal Policy B" name="internalPolicyB" locationURI="http://www.external_link.de">
+    <authorityRequirement>
+      <requiredAuthority href="#id-aac89a866a8b6655dfeeb21e0781a228" />
+    </authorityRequirement>
+  </knowledgeSource>
+</definitions>
