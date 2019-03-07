@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1sz9cdt" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="calculateAnnualPremium" name="Annual Premium">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Driver Category">
+        <inputExpression id="inputExpression_1" typeRef="string" expressionLanguage="FEEL">
+          <text>driverCategory</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0xnzlvh" label="Country of issue">
+        <inputExpression id="LiteralExpression_10sllb9" typeRef="string">
+          <text>countryOfIssue</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Premium" name="premium" typeRef="string" />
+      <rule id="DecisionRule_02so0jd">
+        <inputEntry id="UnaryTests_131gkl2">
+          <text>"novice"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ho0h0h">
+          <text>"USA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xpv0wj">
+          <text>"700"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oeofcx">
+        <inputEntry id="UnaryTests_1age75u">
+          <text>"novice"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fxfi0f">
+          <text>"Switzerland", "eu"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lgcay6">
+          <text>"600"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r9uret">
+        <inputEntry id="UnaryTests_0rdcee4">
+          <text>"senior"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h3uyau">
+          <text>"USA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n7stgx">
+          <text>"300"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_172n0vd">
+        <inputEntry id="UnaryTests_05mkeq9">
+          <text>"senior"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1th6lp7">
+          <text>"restOfTheWorld"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05dad42">
+          <text>"200"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1veeia7">
+        <inputEntry id="UnaryTests_1inv9ow">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nmu69o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vuqf6n">
+          <text>"300"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

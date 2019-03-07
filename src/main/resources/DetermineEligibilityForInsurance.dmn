@@ -187,7 +187,7 @@
     </extensionElements>
     <variable id="id-0a103043cc99fb7543a25b43241cc3db_variable" name="airbagEquipment" typeRef="sig:airbagEquipment" />
   </inputData>
-  <decision id="id-51b3a010927f87aca649eb97d7c8191b" label="Automobile Eligibility" name="automobileEligibility" sigExt:shapeId="sid-FAC0AA54-0781-465D-982E-54B4E4B46C4B" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
+  <decision id="id-automobileEligibility" label="Automobile Eligibility" name="automobileEligibility" sigExt:shapeId="sid-FAC0AA54-0781-465D-982E-54B4E4B46C4B" sigExt:diagramId="fc381c81f0894305a578b311f337bb75">
     <extensionElements>
       <sigExt:diagramMetaData name="decisionmaker" value="" />
       <sigExt:diagramMetaData name="decisionowner" value="" />
@@ -204,23 +204,23 @@
     </authorityRequirement>
     <decisionTable hitPolicy="FIRST">
       <input id="id-a1e4d9282b96088ca3ce4a63ca138739" label="Potential Occupant Injury Category">
-        <inputExpression>
-          <text>potentialOccupantInjuryCategory</text>
+        <inputExpression typeRef="string">
+          <text>injuryCategory</text>
         </inputExpression>
       </input>
       <input id="id-3d9d62399b4475e8386c94c1b1f5a3b8" label="Potential Theft Rating">
-        <inputExpression>
-          <text>potentialTheftRating</text>
+        <inputExpression typeRef="boolean">
+          <text>theftRating</text>
         </inputExpression>
       </input>
-      <output id="id-c140fec8a6d0a792e3e643105e1fae20" label="Automobile Eligibility" name="automobileEligibility" typeRef="sig:automobileEligibility2" />
+      <output id="id-c140fec8a6d0a792e3e643105e1fae20" label="Automobile Eligibility" name="automobileEligibility" typeRef="string" />
       <rule id="id-2ff7cf35cf510ac0d8aef2da259d7886">
         <description>string(-)</description>
         <inputEntry>
           <text>"extremely high"</text>
         </inputEntry>
         <inputEntry>
-          <text>-</text>
+          <text>false</text>
         </inputEntry>
         <outputEntry>
           <text>"not eligible"</text>
@@ -244,7 +244,7 @@
           <text>-</text>
         </inputEntry>
         <inputEntry>
-          <text>"high"</text>
+          <text>true</text>
         </inputEntry>
         <outputEntry>
           <text>"provisional"</text>
@@ -550,7 +550,7 @@
     </extensionElements>
     <variable id="id-27d50a6b459f5d6a20e14b39f211061c_variable" name="eligibiltyScoring" typeRef="sig:eligibiltyScoring" />
     <informationRequirement>
-      <requiredDecision href="#id-51b3a010927f87aca649eb97d7c8191b" />
+      <requiredDecision href="#id-automobileEligibilitytheftRating" />
     </informationRequirement>
     <informationRequirement>
       <requiredDecision href="#id-df116f2214547d57fedc084e9fb56970" />
