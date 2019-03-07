@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1i9e9wv" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="automobileEligibility" name="determine">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Potential Occupant Injury Category">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>automobileEligibility</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_03vx7sn" label="Potential Theft Rating">
+        <inputExpression id="LiteralExpression_0jcx06l" typeRef="boolean">
+          <text>theftRating</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Automobile Eligibility" name="automobileEligibility" typeRef="string" />
+      <rule id="DecisionRule_0b5jc5f">
+        <inputEntry id="UnaryTests_16y6q6a">
+          <text>"extremely high" </text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05qvowc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19ddtbe">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01lff8e">
+        <inputEntry id="UnaryTests_0iofcra">
+          <text>"high</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nb013e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_062yi8h">
+          <text>"provisional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13wg85f">
+        <inputEntry id="UnaryTests_1sp06jd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l13tw5">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fet9yq">
+          <text>"provisional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qgdosg">
+        <inputEntry id="UnaryTests_09muhjw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iqqfcx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rx3pfs">
+          <text>"eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rf793l">
+        <inputEntry id="UnaryTests_0h2k1oj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_143ymci">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pm1rh4">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
