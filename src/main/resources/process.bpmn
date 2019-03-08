@@ -9,8 +9,6 @@
         <bpmn:flowNodeRef>ExclusiveGateway_1v46h1r</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0jtsgry</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EventBasedGateway_092rhmm</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>IntermediateCatchEvent_0ssg9aj</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>IntermediateCatchEvent_0moakrh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1h2t9ui</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>IntermediateCatchEvent_18rw1wj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1azfldk</bpmn:flowNodeRef>
@@ -25,6 +23,8 @@
         <bpmn:flowNodeRef>EndEvent_0fn42rg</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1tgzfov</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_0ojsrcb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>IntermediateCatchEvent_0moakrh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>IntermediateCatchEvent_0ssg9aj</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0v698km" name="Manager">
         <bpmn:flowNodeRef>Task_0bo7a6q</bpmn:flowNodeRef>
@@ -47,20 +47,6 @@
       <bpmn:outgoing>SequenceFlow_1yuym9d</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1chlpfp</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0ssg9aj" name="Contract accepted&#10;by customer">
-      <bpmn:incoming>SequenceFlow_1chlpfp</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_12bzx23</bpmn:outgoing>
-      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1awenmx">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression">#{not accepted}</bpmn:condition>
-      </bpmn:conditionalEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0moakrh" name="Contract rejected&#10;by customer">
-      <bpmn:incoming>SequenceFlow_1p3jnfh</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1cqlhuk</bpmn:outgoing>
-      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_09s4cfc">
-        <bpmn:condition xsi:type="bpmn:tFormalExpression">#{accepted}</bpmn:condition>
-      </bpmn:conditionalEventDefinition>
-    </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_1h2t9ui" gatewayDirection="Converging">
       <bpmn:incoming>SequenceFlow_0vmuake</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1pb4y0h</bpmn:incoming>
@@ -70,7 +56,7 @@
       <bpmn:incoming>SequenceFlow_1yuym9d</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0f9cb5o</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0znad78">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P5T</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P5D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_1azfldk" name="Case approved?" gatewayDirection="Diverging">
@@ -123,7 +109,7 @@
       <bpmn:incoming>SequenceFlow_1ak18zj</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hwxen2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:businessRuleTask id="ServiceTask_1l2tzfg" name="Check qualification for insurability" camunda:asyncAfter="true" implementation="##WebService" camunda:resultVariable="automobileEligibility" camunda:decisionRef="calculateAnnualPremium" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="ServiceTask_1l2tzfg" name="Check qualification for insurability" camunda:asyncBefore="true" implementation="##WebService" camunda:resultVariable="automobileEligibility" camunda:decisionRef="automobileEligibility" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>SequenceFlow_158p9kz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1osxifu</bpmn:outgoing>
     </bpmn:businessRuleTask>
@@ -214,6 +200,16 @@
     <bpmn:sequenceFlow id="SequenceFlow_1ak18zj" name="no" sourceRef="ExclusiveGateway_1azfldk" targetRef="Task_15eyi6w">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not approved}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0moakrh" name="Contract rejected&#10;by customer">
+      <bpmn:incoming>SequenceFlow_1p3jnfh</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1cqlhuk</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_0feg2h3" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0ssg9aj" name="Contract accepted&#10;by customer">
+      <bpmn:incoming>SequenceFlow_1chlpfp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12bzx23</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_0nkod82" />
+    </bpmn:intermediateCatchEvent>
     <bpmn:textAnnotation id="TextAnnotation_16p1111">
       <bpmn:text>Name of the applicant
 E-mail Adress
@@ -226,6 +222,8 @@ Country of issue</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_07le1m6" sourceRef="StartEvent_0ojsrcb" targetRef="TextAnnotation_16p1111" />
   </bpmn:process>
+  <bpmn:message id="Message_0feg2h3" name="REJECTED" />
+  <bpmn:message id="Message_0nkod82" name="ACCEPTED" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1a9dmei">
       <bpmndi:BPMNShape id="Participant_04l1gyj_di" bpmnElement="OpenHPIPool" isHorizontal="true">
@@ -248,18 +246,6 @@ Country of issue</bpmn:text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EventBasedGateway_092rhmm_di" bpmnElement="EventBasedGateway_092rhmm">
         <dc:Bounds x="1827" y="355" width="40" height="40" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_0ssg9aj_di" bpmnElement="IntermediateCatchEvent_0ssg9aj" bioc:stroke="#000" bioc:fill="#fff">
-        <dc:Bounds x="1912" y="473" width="30" height="30" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1883" y="505" width="90" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_0moakrh_di" bpmnElement="IntermediateCatchEvent_0moakrh" bioc:stroke="#000" bioc:fill="#fff">
-        <dc:Bounds x="1912" y="360" width="30" height="30" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1886" y="392" width="84" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1hcbcaf_di" bpmnElement="EndEvent_1hcbcaf" bioc:stroke="#000" bioc:fill="#fff">
         <dc:Bounds x="2241" y="474" width="28" height="28" />
@@ -311,7 +297,7 @@ Country of issue</bpmn:text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1cqlhuk_di" bpmnElement="SequenceFlow_1cqlhuk">
-        <di:waypoint x="1942" y="375" />
+        <di:waypoint x="1945" y="375" />
         <di:waypoint x="2237" y="375" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0vmuake_di" bpmnElement="SequenceFlow_0vmuake">
@@ -334,12 +320,12 @@ Country of issue</bpmn:text>
         <di:waypoint x="2014" y="278" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_12bzx23_di" bpmnElement="SequenceFlow_12bzx23">
-        <di:waypoint x="1942" y="488" />
+        <di:waypoint x="1945" y="488" />
         <di:waypoint x="2014" y="488" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1p3jnfh_di" bpmnElement="SequenceFlow_1p3jnfh">
         <di:waypoint x="1867" y="375" />
-        <di:waypoint x="1912" y="375" />
+        <di:waypoint x="1909" y="375" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1yuym9d_di" bpmnElement="SequenceFlow_1yuym9d">
         <di:waypoint x="1848" y="355" />
@@ -347,9 +333,9 @@ Country of issue</bpmn:text>
         <di:waypoint x="1912" y="278" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1chlpfp_di" bpmnElement="SequenceFlow_1chlpfp">
-        <di:waypoint x="1848" y="395" />
+        <di:waypoint x="1848" y="394" />
         <di:waypoint x="1848" y="488" />
-        <di:waypoint x="1912" y="488" />
+        <di:waypoint x="1909" y="488" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1pb4y0h_di" bpmnElement="SequenceFlow_1pb4y0h">
         <di:waypoint x="1696" y="375" />
@@ -452,6 +438,18 @@ Country of issue</bpmn:text>
         <dc:Bounds x="263" y="357" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="240" y="392" width="82" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_0cs7y2a_di" bpmnElement="IntermediateCatchEvent_0moakrh" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="1909" y="357" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1886" y="392" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_089qs2s_di" bpmnElement="IntermediateCatchEvent_0ssg9aj" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="1909" y="470" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1883" y="505" width="90" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
