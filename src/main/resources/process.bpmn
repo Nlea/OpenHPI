@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.16.2">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.4">
   <bpmn:collaboration id="Collaboration_1a9dmei">
     <bpmn:participant id="OpenHPIPool" name="Car-Insurance Company" processRef="OpenHPI" />
   </bpmn:collaboration>
@@ -76,7 +76,7 @@
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="name" label="Name" type="string" />
-          <camunda:formField id="email" label="E.mail Adresse" type="string" />
+          <camunda:formField id="email" label="Email Address" type="string" />
           <camunda:formField id="highTheftProbability" label="Listed as high chance of theft?" type="boolean" />
           <camunda:formField id="carsValue" label="What is the total value of the car?" type="long" />
           <camunda:formField id="airbag" label="What kind of airbag does the car provide?" type="enum">
@@ -197,7 +197,83 @@
     <bpmn:userTask id="Task_0bo7a6q" name="review &#10;of the case">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="approved" label="Do you approve the case?" type="boolean" />
+          <camunda:formField id="name" label="Name" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="email" label="Email Address" type="string">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="highTheftProbability" label="Listed as high chance of theft?" type="boolean">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="carsValue" label="What is the total value of the car?" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="airbag" label="What kind of airbag does the car provide?" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+            <camunda:value id="no_airbags" name="No Airbag" />
+            <camunda:value id="drivers_airbag" name="Drivers Aribag" />
+            <camunda:value id="drivers_and_front_passanger_airbags" name="Driver and Front Airbag" />
+            <camunda:value id="front_complete_and_side_panel_airbags" name="Front and Side Airbags" />
+          </camunda:formField>
+          <camunda:formField id="dui" label="Does the applicant have a DUI?" type="boolean">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="accidents" label="Number of accidents the driver has been invovled in" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="violations" label="Number of traffic violations" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="safeDriverTraining" label="Has the driver completed safety training?" type="boolean">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="age" label="Age of driver" type="long">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="countryOfIssue" label="Which Country Issued your Driving licence?" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+            <camunda:value id="USA" name="USA" />
+            <camunda:value id="EU" name="EU" />
+            <camunda:value id="Switzerland" name="Switzerland" />
+            <camunda:value id="restOfTheWorld" name="Rest of the world" />
+          </camunda:formField>
+          <camunda:formField id="carType" label="What type of car is it?" type="enum">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+            <camunda:value id="compact" name="Compact" />
+            <camunda:value id="sedan" name="Sedan" />
+            <camunda:value id="luxury" name="Luxury" />
+          </camunda:formField>
+          <camunda:formField id="ageOfCar" label="How many years old is the car?" type="long" defaultValue="0">
+            <camunda:validation>
+              <camunda:constraint name="readonly" config="true" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="approved" label="Do you want to approve this case?" type="boolean" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1g5xhp1</bpmn:incoming>
