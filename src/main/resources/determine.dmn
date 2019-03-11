@@ -1,60 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1i9e9wv" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.0">
-  <decision id="automobileEligibility" name="determine">
-    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
-      <input id="input_1" label="Potential Occupant Injury Category">
-        <inputExpression id="inputExpression_1" typeRef="string">
-          <text>injuryCategory</text>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1i9e9wv" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-0">
+  <decision id="insuranceEligibility" name="Determine eligibility for insurance">
+    <extensionElements>
+      <biodi:bounds x="538" y="153" width="180" height="80" />
+      <biodi:edge source="eligibilityScoring">
+        <biodi:waypoints x="630" y="290" />
+        <biodi:waypoints x="632" y="233" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1bwygb8">
+        <biodi:waypoints x="1222" y="713" />
+        <biodi:waypoints x="1222" y="193" />
+        <biodi:waypoints x="722" y="193" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#eligibilityScoring" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1bwygb8" />
+    </informationRequirement>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Age">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>age</text>
         </inputExpression>
       </input>
-      <input id="InputClause_03vx7sn" label="Potential Theft Rating">
-        <inputExpression id="LiteralExpression_0jcx06l" typeRef="boolean">
-          <text>theftRating</text>
+      <input id="InputClause_03vx7sn" label="Eligibilty scoring">
+        <inputExpression id="LiteralExpression_0jcx06l" typeRef="integer">
+          <text>eligibiltyScoring</text>
         </inputExpression>
       </input>
-      <output id="output_1" label="Automobile Eligibility" name="automobileEligibility" typeRef="string" />
+      <output id="output_1" label="Eligibilty scoring" name="eligibiltyScoring" typeRef="string" />
       <rule id="DecisionRule_0b5jc5f">
         <inputEntry id="UnaryTests_16y6q6a">
-          <text>"extremlyHigh"</text>
+          <text>&gt;= 18</text>
         </inputEntry>
         <inputEntry id="UnaryTests_05qvowc">
-          <text></text>
+          <text>&lt; 100</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_19ddtbe">
-          <text>"not eligible"</text>
+          <text>"eligible"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_01lff8e">
         <inputEntry id="UnaryTests_0iofcra">
-          <text>"high"</text>
+          <text>&gt;= 18</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1nb013e">
-          <text></text>
+          <text>[100..150]</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_062yi8h">
-          <text>"provisional"</text>
+          <text>"review"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_13wg85f">
         <inputEntry id="UnaryTests_1sp06jd">
-          <text></text>
+          <text>&gt;= 18</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1l13tw5">
-          <text>true</text>
+          <text>&gt; 150</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0fet9yq">
-          <text>"provisional"</text>
+          <text>"not eligible"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0qgdosg">
         <inputEntry id="UnaryTests_09muhjw">
-          <text></text>
+          <text>&lt; 18</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iqqfcx">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0rx3pfs">
-          <text>"eligible"</text>
+          <text>"not eligible"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1rf793l">
@@ -70,4 +88,633 @@
       </rule>
     </decisionTable>
   </decision>
+  <decision id="eligibilityScoring" name="Eligibility scoring">
+    <extensionElements>
+      <biodi:bounds x="536" y="290" width="180" height="80" />
+      <biodi:edge source="automobileEligibility">
+        <biodi:waypoints x="440" y="450" />
+        <biodi:waypoints x="536" y="360" />
+      </biodi:edge>
+      <biodi:edge source="driverEligibility">
+        <biodi:waypoints x="813" y="455" />
+        <biodi:waypoints x="716" y="368" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#automobileEligibility" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#driverEligibility" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1r2um02" hitPolicy="COLLECT" aggregation="SUM">
+      <input id="InputClause_019vbqj" label="Automobile eligibility">
+        <inputExpression id="LiteralExpression_040uguu" typeRef="string">
+          <text>automobileEligibility</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1f7io32" label="Driver eligibility">
+        <inputExpression id="LiteralExpression_1opda5m" typeRef="string">
+          <text>driverEligibility</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0x9l6fm" label="eligibility scoring" name="eligibilityScoring" typeRef="integer" />
+      <rule id="DecisionRule_0m7smci">
+        <inputEntry id="UnaryTests_0ubbfp3">
+          <text>"not eligible"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x4xxi2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15qaa3u">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gfbooy">
+        <inputEntry id="UnaryTests_0npkh2s">
+          <text>"provisional"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09mgczi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ng4go0">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q282bj">
+        <inputEntry id="UnaryTests_00rvf9u">
+          <text>"eligible"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u8r0yi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zkgprt">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gohq9e">
+        <inputEntry id="UnaryTests_0tybhzl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kuqtwa">
+          <text>"insurable"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0io0qsl">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w4e8er">
+        <inputEntry id="UnaryTests_0amy72g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o64zda">
+          <text>"restricted insurable"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g0e36w">
+          <text>30</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18fi00v">
+        <inputEntry id="UnaryTests_1d3f3ml">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q6mcrx">
+          <text>"uninsurable"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kuxir9">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="automobileEligibility" name="Automobile eligibility">
+    <extensionElements>
+      <biodi:bounds x="307" y="450" width="180" height="80" />
+      <biodi:edge source="KnowledgeSource_0recrdj">
+        <biodi:waypoints x="257" y="487" />
+        <biodi:waypoints x="307" y="489" />
+      </biodi:edge>
+      <biodi:edge source="theftRating">
+        <biodi:waypoints x="285" y="598" />
+        <biodi:waypoints x="347" y="530" />
+      </biodi:edge>
+      <biodi:edge source="injuryCategory">
+        <biodi:waypoints x="493" y="593" />
+        <biodi:waypoints x="457" y="530" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#theftRating" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#injuryCategory" />
+    </informationRequirement>
+    <authorityRequirement>
+      <requiredAuthority href="#KnowledgeSource_0recrdj" />
+    </authorityRequirement>
+    <decisionTable id="DecisionTable_0lnjrf8" hitPolicy="FIRST">
+      <input id="InputClause_0mlzo63" label="Potential occupant injury category">
+        <inputExpression id="LiteralExpression_1x6bywv" typeRef="string">
+          <text>injuryCategory</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0p7rivi" label="Potential theft rating">
+        <inputExpression id="LiteralExpression_13jdd53" typeRef="string">
+          <text>theftRating</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_108odt4" label="Automobile eligibility" name="automobileEligibility" typeRef="string" />
+      <rule id="DecisionRule_04j97p2">
+        <inputEntry id="UnaryTests_1nebe3s">
+          <text>"extremely high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e47jc7">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bahmbj">
+          <text>"not eligible"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1elt3jx">
+        <inputEntry id="UnaryTests_0l62pgh">
+          <text>"high"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kkbmsp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19ot4ot">
+          <text>"provisional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00fnzgn">
+        <inputEntry id="UnaryTests_1wndaag">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17vzg3j">
+          <text>"high"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12ejfxl">
+          <text>"provisional"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rb1ydi">
+        <inputEntry id="UnaryTests_0nat96v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bvue6j">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zefjvu">
+          <text>"eligible"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="driverEligibility" name="Driver eligibility">
+    <extensionElements>
+      <biodi:bounds x="767" y="455" width="180" height="80" />
+      <biodi:edge source="driverCategory">
+        <biodi:waypoints x="986" y="593" />
+        <biodi:waypoints x="910" y="535" />
+      </biodi:edge>
+      <biodi:edge source="driverRecordCategory">
+        <biodi:waypoints x="768" y="593" />
+        <biodi:waypoints x="813" y="535" />
+      </biodi:edge>
+      <biodi:edge source="KnowledgeSource_048amuo">
+        <biodi:waypoints x="980" y="498" />
+        <biodi:waypoints x="947" y="497" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#driverCategory" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#driverRecordCategory" />
+    </informationRequirement>
+    <authorityRequirement>
+      <requiredAuthority href="#KnowledgeSource_048amuo" />
+    </authorityRequirement>
+    <decisionTable id="DecisionTable_0yjyqqo">
+      <input id="InputClause_0on30bj" label="Driving record category">
+        <inputExpression id="LiteralExpression_1pordjr" typeRef="string">
+          <text>drivingRecordCategory</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0s6k5ny">
+          <text>"high risk","normal"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0qyakhd" label="Driver category">
+        <inputExpression id="LiteralExpression_1n9h1dw" typeRef="string">
+          <text>driverCategory</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_079fz5s">
+          <text>"novice driver","experienced driver","typical driver"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0p46kgx" label="Driver eligibility" name="driverEligibility" typeRef="string" />
+      <rule id="DecisionRule_0g0f6m8">
+        <inputEntry id="UnaryTests_1ypcqy6">
+          <text>"high risk"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m1hxdj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y1xh5y">
+          <text>"uninsurable"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1d9btel">
+        <inputEntry id="UnaryTests_1dsnyao">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_101ovfg">
+          <text>"novice driver","experienced driver"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_191yoxd">
+          <text>"restricted insurable"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0iyrpyz">
+        <inputEntry id="UnaryTests_08k19kq">
+          <text>"normal"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1btdcl7">
+          <text>"typical driver"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_000iupd">
+          <text>"insurable"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="injuryCategory" name="Potential occupant injury category">
+    <extensionElements>
+      <biodi:bounds x="426" y="593" width="180" height="80" />
+      <biodi:edge source="InputData_191fcve">
+        <biodi:waypoints x="474" y="716" />
+        <biodi:waypoints x="482" y="673" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_191fcve" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1p6f0ko" hitPolicy="FIRST">
+      <input id="InputClause_1jnwrx2" label="Airbag equipment">
+        <inputExpression id="LiteralExpression_0qnscxn" typeRef="string">
+          <text>airbag</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0nv5as3" label="Potential occupant injury category" name="injuryCategory" typeRef="string" />
+      <rule id="DecisionRule_0k3p26v">
+        <inputEntry id="UnaryTests_1gg1bsh">
+          <text>"no airbags"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04hmn6q">
+          <text>"extremely high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1atknwp">
+        <inputEntry id="UnaryTests_189sit0">
+          <text>"drivers airbag"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jiwx0s">
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0h96o0k">
+        <inputEntry id="UnaryTests_0q90jes">
+          <text>"drivers + front passanger airbag"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xs7c2g">
+          <text>"moderate"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hk89rd">
+        <inputEntry id="UnaryTests_0jz7e3u">
+          <text>"front complete + side panel airbags"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0iafed3">
+          <text>"low"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o9lmbi">
+        <inputEntry id="UnaryTests_0fhkg4l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1shymni">
+          <text>"extremely high"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="theftRating" name="Potential theft rating">
+    <extensionElements>
+      <biodi:bounds x="158" y="598" width="180" height="80" />
+      <biodi:edge source="InputData_1o4slrp">
+        <biodi:waypoints x="174" y="718" />
+        <biodi:waypoints x="192" y="678" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1e2f921">
+        <biodi:waypoints x="300" y="717" />
+        <biodi:waypoints x="274" y="678" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_1o4slrp" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1e2f921" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_16qqdat">
+      <input id="InputClause_04512zm" label="listed as &#39;High Theft Probability&#39;">
+        <inputExpression id="LiteralExpression_1owcg1i" typeRef="boolean">
+          <text>highTheftPronanility</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1r9vzmf" label="Car&#39;s value">
+        <inputExpression id="LiteralExpression_1kk2ygf" typeRef="integer">
+          <text>carsValue</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1cqt4c0" label="Potential theft rating" name="theftRating" typeRef="string" />
+      <rule id="DecisionRule_0wev3mi">
+        <inputEntry id="UnaryTests_09845wu">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02y57c3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0af2j3x">
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1e5iw62">
+        <inputEntry id="UnaryTests_1g5q2o2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05bmmm5">
+          <text>&gt; 4500</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19b3fu8">
+          <text>"high"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pqma2f">
+        <inputEntry id="UnaryTests_1lbdm0h">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n9hll7">
+          <text>[2000..4500]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1etbto9">
+          <text>"moderate"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04338z7">
+        <inputEntry id="UnaryTests_1s5yfze">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13srw57">
+          <text>&lt; 2000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g4a66m">
+          <text>"low"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="driverRecordCategory" name="Driving record category">
+    <extensionElements>
+      <biodi:bounds x="648" y="593" width="180" height="80" />
+      <biodi:edge source="InputData_0o0j4nh">
+        <biodi:waypoints x="642" y="715" />
+        <biodi:waypoints x="670" y="673" />
+      </biodi:edge>
+      <biodi:edge source="InputData_07sejqg">
+        <biodi:waypoints x="764" y="713" />
+        <biodi:waypoints x="765" y="673" />
+      </biodi:edge>
+      <biodi:edge source="InputData_0gcclqf">
+        <biodi:waypoints x="876" y="711" />
+        <biodi:waypoints x="824" y="673" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0o0j4nh" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_07sejqg" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_0gcclqf" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0bxg54y" hitPolicy="FIRST">
+      <input id="InputClause_14z5plo" label="Convicted under DUI">
+        <inputExpression id="LiteralExpression_1pe92o5" typeRef="boolean">
+          <text>dui</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1lva9dh" label="Number of involved accidents">
+        <inputExpression id="LiteralExpression_17o70yr" typeRef="integer">
+          <text>accitends</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_09j1vqg" label="Number of moving violations">
+        <inputExpression id="LiteralExpression_1tvmrac" typeRef="integer">
+          <text>violations</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_16rubd7" label="Driving record category" name="drivingRecordCategory" typeRef="string">
+        <outputValues id="UnaryTests_0ujs1az">
+          <text>"high risk","normal"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1ueipty">
+        <inputEntry id="UnaryTests_16kvsf5">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tgrmw2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wn1v58">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_184da7r">
+          <text>"high risk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1stst7m">
+        <inputEntry id="UnaryTests_1u1eumf">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q8thiv">
+          <text>&gt; 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wrv6bk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xjih9w">
+          <text>"high risk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rvryqk">
+        <inputEntry id="UnaryTests_1pzkd6f">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1top5oz">
+          <text>&lt;= 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kgyz25">
+          <text>&gt; 3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13skg5o">
+          <text>"high risk"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_189qecz">
+        <inputEntry id="UnaryTests_0yaile8">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c5b713">
+          <text>&lt;= 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qcq1fn">
+          <text>&lt;= 3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_060i7ov">
+          <text>"normal"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="driverCategory" name="Driver category">
+    <extensionElements>
+      <biodi:bounds x="948" y="593" width="180" height="80" />
+      <biodi:edge source="InputData_0pjeqee">
+        <biodi:waypoints x="1012" y="712" />
+        <biodi:waypoints x="1008" y="673" />
+      </biodi:edge>
+      <biodi:edge source="InputData_1bwygb8">
+        <biodi:waypoints x="1178" y="713" />
+        <biodi:waypoints x="1128" y="674" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0pjeqee" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1bwygb8" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0u67kre" hitPolicy="FIRST">
+      <input id="InputClause_0abx2a5" label="safe driver Training">
+        <inputExpression id="LiteralExpression_1kg5mo2" typeRef="boolean">
+          <text>safeDriverTraining</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_13gby6f" label="Age">
+        <inputExpression id="LiteralExpression_17h04f7" typeRef="integer">
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1kxbeni" label="Driver category" name="driverCategory" typeRef="string">
+        <outputValues id="UnaryTests_101cjgo">
+          <text>"novice driver","experienced driver","typical driver"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0ofu414">
+        <inputEntry id="UnaryTests_17dnvpr">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12dl8g2">
+          <text>&lt; 25</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1a3vsy3">
+          <text>"novice driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1teq4l7">
+        <inputEntry id="UnaryTests_109g9qd">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0er6gjn">
+          <text>&gt;= 25</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_178j6qz">
+          <text>"novice driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ovu4by">
+        <inputEntry id="UnaryTests_08sx6w2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s5mup7">
+          <text>&lt; 21</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1oomqm6">
+          <text>"experienced driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1iu9eyi">
+        <inputEntry id="UnaryTests_02a842o">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a5g6k4">
+          <text>&gt;= 21</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m3cf3o">
+          <text>"typical driver"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1bwygb8" name="Age">
+    <extensionElements>
+      <biodi:bounds x="1159" y="713" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_0pjeqee" name="Driver Safety Training">
+    <extensionElements>
+      <biodi:bounds x="993" y="712" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <knowledgeSource id="KnowledgeSource_0recrdj" name="Policy B">
+    <extensionElements>
+      <biodi:bounds x="157" y="454" width="100" height="63" />
+    </extensionElements>
+  </knowledgeSource>
+  <knowledgeSource id="KnowledgeSource_048amuo" name="Guideline C">
+    <extensionElements>
+      <biodi:bounds x="980" y="466" width="100" height="63" />
+    </extensionElements>
+  </knowledgeSource>
+  <inputData id="InputData_1o4slrp" name="high theft probability">
+    <extensionElements>
+      <biodi:bounds x="101" y="718" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_1e2f921" name="car&#39;s value">
+    <extensionElements>
+      <biodi:bounds x="252" y="717" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_191fcve" name="Airbag equipment">
+    <extensionElements>
+      <biodi:bounds x="407" y="716" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_0o0j4nh" name="Convicted under DUI">
+    <extensionElements>
+      <biodi:bounds x="563" y="715" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_07sejqg" name="Number of involved accidents">
+    <extensionElements>
+      <biodi:bounds x="701" y="713" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_0gcclqf" name="number of moving violations">
+    <extensionElements>
+      <biodi:bounds x="845" y="711" width="125" height="45" />
+    </extensionElements>
+  </inputData>
 </definitions>
