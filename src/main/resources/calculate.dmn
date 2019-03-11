@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1sz9cdt" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.0">
-  <decision id="calculateAnnualPremium" name="Annual Premium">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="CalculateAnnualPremium" name="Calculate Annual Premium DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.0">
+  <decision id="calculateDriverPremium" name="Calculate Driver Premium">
     <extensionElements>
-      <biodi:bounds x="150" y="150" width="180" height="80" />
+      <biodi:bounds x="589" y="262" width="180" height="80" />
+      <biodi:edge source="InputData_07zejsa">
+        <biodi:waypoints x="575" y="408" />
+        <biodi:waypoints x="655" y="342" />
+      </biodi:edge>
+      <biodi:edge source="driverCategory">
+        <biodi:waypoints x="787" y="414" />
+        <biodi:waypoints x="719" y="342" />
+      </biodi:edge>
     </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_07zejsa" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#driverCategory" />
+    </informationRequirement>
     <decisionTable id="decisionTable_1" hitPolicy="FIRST">
       <input id="input_1" label="Driver Category">
         <inputExpression id="inputExpression_1" typeRef="string">
@@ -15,7 +29,7 @@
           <text>countryOfIssue</text>
         </inputExpression>
       </input>
-      <output id="output_1" label="Premium" name="premium" typeRef="string" />
+      <output id="output_1" label="Premium" name="driverPremium" typeRef="integer" />
       <rule id="DecisionRule_02so0jd">
         <inputEntry id="UnaryTests_131gkl2">
           <text>"novice"</text>
@@ -24,7 +38,7 @@
           <text>"USA"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xpv0wj">
-          <text>"700"</text>
+          <text>700</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1oeofcx">
@@ -35,7 +49,7 @@
           <text>"Switzerland", "eu"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lgcay6">
-          <text>"600"</text>
+          <text>600</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0r9uret">
@@ -46,7 +60,7 @@
           <text>"USA"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1n7stgx">
-          <text>"300"</text>
+          <text>300</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_172n0vd">
@@ -57,7 +71,7 @@
           <text>"restOfTheWorld"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_05dad42">
-          <text>"200"</text>
+          <text>200</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1veeia7">
@@ -68,9 +82,212 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1vuqf6n">
-          <text>"300"</text>
+          <text>300</text>
         </outputEntry>
       </rule>
     </decisionTable>
+  </decision>
+  <decision id="calculatePremiumforCar" name="Calculate Premium for Car Model">
+    <extensionElements>
+      <biodi:bounds x="251" y="261" width="180" height="80" />
+      <biodi:edge source="InputData_1sxvrhf">
+        <biodi:waypoints x="382" y="411" />
+        <biodi:waypoints x="378" y="341" />
+      </biodi:edge>
+      <biodi:edge source="InputData_09ybq7c">
+        <biodi:waypoints x="233" y="413" />
+        <biodi:waypoints x="277" y="341" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_1sxvrhf" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_09ybq7c" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_18a6d3i" hitPolicy="COLLECT" aggregation="SUM">
+      <input id="InputClause_0doy8lr" label="Age Of Car (years)">
+        <inputExpression id="LiteralExpression_1juf1mh" typeRef="integer">
+          <text>ageOfCar</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0y8uh69" label="Type of Car">
+        <inputExpression id="LiteralExpression_1d1wyjh" typeRef="string">
+          <text>carType</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1uby93g">
+          <text>"compact car","sedan","luxury car"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0od0hzd" label="Premium For Car" name="premiumForCar" typeRef="integer" />
+      <rule id="DecisionRule_02mydmv">
+        <inputEntry id="UnaryTests_1e7p4bg">
+          <text>&lt; 1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0899lca">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bfbdq5">
+          <text>500</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ittb44">
+        <inputEntry id="UnaryTests_0ag5r9y">
+          <text>[1..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ffx3o4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ligsgq">
+          <text>300</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1650qf6">
+        <inputEntry id="UnaryTests_1w94paw">
+          <text>]5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e198aq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1iwfhe7">
+          <text>250</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16sfrtm">
+        <inputEntry id="UnaryTests_081xike">
+          <text>&gt;19</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yukozg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vihwea">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t2a6gx">
+        <inputEntry id="UnaryTests_05yipa6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g8scs1">
+          <text>"compact"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07xbyos">
+          <text>300</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11q9khm">
+        <inputEntry id="UnaryTests_03poiy4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jfwusf">
+          <text>"sedan"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jlq4ho">
+          <text>400</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fvh5g7">
+        <inputEntry id="UnaryTests_0cr0hw1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a8nuey">
+          <text>"luxury"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1a86x61">
+          <text>500</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="driverCategory" name="Driver Category">
+    <extensionElements>
+      <biodi:bounds x="735" y="414" width="180" height="80" />
+      <biodi:edge source="InputData_12x43fz">
+        <biodi:waypoints x="828" y="566" />
+        <biodi:waypoints x="831" y="494" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_12x43fz" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1j2klsq" hitPolicy="FIRST">
+      <input id="InputClause_05drq4v" label="Drivera Age">
+        <inputExpression id="LiteralExpression_1jxky45" typeRef="long">
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1l0h1gz" label="Driver Category" name="driverCategory" typeRef="string">
+        <outputValues id="UnaryTests_0uln9g3">
+          <text>"novice driver","senior driver","typical driver"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_033c8ay">
+        <inputEntry id="UnaryTests_1t1yjol">
+          <text>&lt; 21</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wyop9c">
+          <text>"novice driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13knu5k">
+        <inputEntry id="UnaryTests_1fknk5o">
+          <text>&gt; 70</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gjy9fn">
+          <text>"senior driver"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s2e6jz">
+        <inputEntry id="UnaryTests_1sw5rot">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05nbx7z">
+          <text>"typical driver"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_07zejsa" name="Country of Issue">
+    <extensionElements>
+      <biodi:bounds x="484" y="408" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_12x43fz" name="Driver age">
+    <extensionElements>
+      <biodi:bounds x="764" y="566" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_1sxvrhf" name="Type of Car">
+    <extensionElements>
+      <biodi:bounds x="320" y="411" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_09ybq7c" name="Age of Car">
+    <extensionElements>
+      <biodi:bounds x="156" y="413" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <decision id="calculatePremium" name="Calculate Annual Premium">
+    <extensionElements>
+      <biodi:bounds x="416" y="128" width="180" height="80" />
+      <biodi:edge source="calculateDriverPremium">
+        <biodi:waypoints x="630" y="262" />
+        <biodi:waypoints x="565" y="208" />
+      </biodi:edge>
+      <biodi:edge source="calculatePremiumforCar">
+        <biodi:waypoints x="388" y="261" />
+        <biodi:waypoints x="450" y="208" />
+      </biodi:edge>
+    </extensionElements>
+    <variable id="InformationItem_0fc09t0" name="premium" typeRef="integer" />
+    <informationRequirement>
+      <requiredDecision href="#calculateDriverPremium" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#calculatePremiumforCar" />
+    </informationRequirement>
+    <literalExpression id="LiteralExpression_07tlay3" expressionLanguage="juel">
+      <text>${driverPremium+premiumForCar}</text>
+    </literalExpression>
   </decision>
 </definitions>
