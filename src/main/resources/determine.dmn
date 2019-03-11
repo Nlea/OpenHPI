@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_1i9e9wv" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-0">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="DetermineEligibilityForInsureance" name="Determine Eligibility For Insureance DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-0">
   <decision id="insuranceEligibility" name="Determine eligibility for insurance">
     <extensionElements>
       <biodi:bounds x="538" y="153" width="180" height="80" />
@@ -25,12 +25,12 @@
           <text>age</text>
         </inputExpression>
       </input>
-      <input id="InputClause_03vx7sn" label="Eligibilty scoring">
+      <input id="InputClause_03vx7sn" label="Eligibilty score">
         <inputExpression id="LiteralExpression_0jcx06l" typeRef="integer">
-          <text>eligibiltyScoring</text>
+          <text>eligibilityScore</text>
         </inputExpression>
       </input>
-      <output id="output_1" label="Eligibilty scoring" name="eligibiltyScoring" typeRef="string" />
+      <output id="output_1" label="Insurance Eligibility" name="insuranceEligibilityType" typeRef="string" />
       <rule id="DecisionRule_0b5jc5f">
         <inputEntry id="UnaryTests_16y6q6a">
           <text>&gt;= 18</text>
@@ -75,17 +75,6 @@
           <text>"not eligible"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1rf793l">
-        <inputEntry id="UnaryTests_0h2k1oj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_143ymci">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0pm1rh4">
-          <text></text>
-        </outputEntry>
-      </rule>
     </decisionTable>
   </decision>
   <decision id="eligibilityScoring" name="Eligibility scoring">
@@ -117,7 +106,7 @@
           <text>driverEligibility</text>
         </inputExpression>
       </input>
-      <output id="OutputClause_0x9l6fm" label="eligibility scoring" name="eligibilityScoring" typeRef="integer" />
+      <output id="OutputClause_0x9l6fm" label="eligibility score" name="eligibilityScore" typeRef="integer" />
       <rule id="DecisionRule_0m7smci">
         <inputEntry id="UnaryTests_0ubbfp3">
           <text>"not eligible"</text>
@@ -272,7 +261,7 @@
   <decision id="driverEligibility" name="Driver eligibility">
     <extensionElements>
       <biodi:bounds x="767" y="455" width="180" height="80" />
-      <biodi:edge source="driverCategory">
+      <biodi:edge source="driverAbilityCategory">
         <biodi:waypoints x="986" y="593" />
         <biodi:waypoints x="910" y="535" />
       </biodi:edge>
@@ -286,7 +275,7 @@
       </biodi:edge>
     </extensionElements>
     <informationRequirement>
-      <requiredDecision href="#driverCategory" />
+      <requiredDecision href="#driverAbilityCategory" />
     </informationRequirement>
     <informationRequirement>
       <requiredDecision href="#driverRecordCategory" />
@@ -367,7 +356,7 @@
       <output id="OutputClause_0nv5as3" label="Potential occupant injury category" name="injuryCategory" typeRef="string" />
       <rule id="DecisionRule_0k3p26v">
         <inputEntry id="UnaryTests_1gg1bsh">
-          <text>"no airbags"</text>
+          <text>"no_airbags"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_04hmn6q">
           <text>"extremely high"</text>
@@ -375,7 +364,7 @@
       </rule>
       <rule id="DecisionRule_1atknwp">
         <inputEntry id="UnaryTests_189sit0">
-          <text>"drivers airbag"</text>
+          <text>"drivers_airbag"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1jiwx0s">
           <text>"high"</text>
@@ -383,7 +372,7 @@
       </rule>
       <rule id="DecisionRule_0h96o0k">
         <inputEntry id="UnaryTests_0q90jes">
-          <text>"drivers + front passanger airbag"</text>
+          <text>"drivers_and_front_passanger_airbags"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xs7c2g">
           <text>"moderate"</text>
@@ -391,7 +380,7 @@
       </rule>
       <rule id="DecisionRule_1hk89rd">
         <inputEntry id="UnaryTests_0jz7e3u">
-          <text>"front complete + side panel airbags"</text>
+          <text>"front_complete_and_side_panel_airbags"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0iafed3">
           <text>"low"</text>
@@ -428,11 +417,11 @@
     <decisionTable id="DecisionTable_16qqdat">
       <input id="InputClause_04512zm" label="listed as &#39;High Theft Probability&#39;">
         <inputExpression id="LiteralExpression_1owcg1i" typeRef="boolean">
-          <text>highTheftPronanility</text>
+          <text>highTheftProbability</text>
         </inputExpression>
       </input>
       <input id="InputClause_1r9vzmf" label="Car&#39;s value">
-        <inputExpression id="LiteralExpression_1kk2ygf" typeRef="integer">
+        <inputExpression id="LiteralExpression_1kk2ygf" typeRef="long">
           <text>carsValue</text>
         </inputExpression>
       </input>
@@ -515,12 +504,12 @@
         </inputExpression>
       </input>
       <input id="InputClause_1lva9dh" label="Number of involved accidents">
-        <inputExpression id="LiteralExpression_17o70yr" typeRef="integer">
-          <text>accitends</text>
+        <inputExpression id="LiteralExpression_17o70yr" typeRef="long">
+          <text>accidents</text>
         </inputExpression>
       </input>
-      <input id="InputClause_09j1vqg" label="Number of moving violations">
-        <inputExpression id="LiteralExpression_1tvmrac" typeRef="integer">
+      <input id="InputClause_09j1vqg" label="Number of traffic violations">
+        <inputExpression id="LiteralExpression_1tvmrac" typeRef="long">
           <text>violations</text>
         </inputExpression>
       </input>
@@ -587,7 +576,7 @@
       </rule>
     </decisionTable>
   </decision>
-  <decision id="driverCategory" name="Driver category">
+  <decision id="driverAbilityCategory" name="Driver category">
     <extensionElements>
       <biodi:bounds x="948" y="593" width="180" height="80" />
       <biodi:edge source="InputData_0pjeqee">
@@ -612,7 +601,7 @@
         </inputExpression>
       </input>
       <input id="InputClause_13gby6f" label="Age">
-        <inputExpression id="LiteralExpression_17h04f7" typeRef="integer">
+        <inputExpression id="LiteralExpression_17h04f7" typeRef="long">
           <text>age</text>
         </inputExpression>
       </input>
@@ -712,7 +701,7 @@
       <biodi:bounds x="701" y="713" width="125" height="45" />
     </extensionElements>
   </inputData>
-  <inputData id="InputData_0gcclqf" name="number of moving violations">
+  <inputData id="InputData_0gcclqf" name="number of traffic violations">
     <extensionElements>
       <biodi:bounds x="845" y="711" width="125" height="45" />
     </extensionElements>

@@ -21,7 +21,7 @@
     <decisionTable id="decisionTable_1" hitPolicy="FIRST">
       <input id="input_1" label="Driver Category">
         <inputExpression id="inputExpression_1" typeRef="string">
-          <text>driverCategory</text>
+          <text>driverCategoryName</text>
         </inputExpression>
       </input>
       <input id="InputClause_0xnzlvh" label="Country of issue">
@@ -32,7 +32,7 @@
       <output id="output_1" label="Premium" name="driverPremium" typeRef="integer" />
       <rule id="DecisionRule_02so0jd">
         <inputEntry id="UnaryTests_131gkl2">
-          <text>"novice"</text>
+          <text>"novice driver"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ho0h0h">
           <text>"USA"</text>
@@ -43,10 +43,10 @@
       </rule>
       <rule id="DecisionRule_1oeofcx">
         <inputEntry id="UnaryTests_1age75u">
-          <text>"novice"</text>
+          <text>"novice driver"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0fxfi0f">
-          <text>"Switzerland", "eu"</text>
+          <text>"Switzerland", "EU"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lgcay6">
           <text>600</text>
@@ -54,7 +54,7 @@
       </rule>
       <rule id="DecisionRule_0r9uret">
         <inputEntry id="UnaryTests_0rdcee4">
-          <text>"senior"</text>
+          <text>"senior driver"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1h3uyau">
           <text>"USA"</text>
@@ -65,7 +65,7 @@
       </rule>
       <rule id="DecisionRule_172n0vd">
         <inputEntry id="UnaryTests_05mkeq9">
-          <text>"senior"</text>
+          <text>"senior driver"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1th6lp7">
           <text>"restOfTheWorld"</text>
@@ -216,7 +216,7 @@
           <text>age</text>
         </inputExpression>
       </input>
-      <output id="OutputClause_1l0h1gz" label="Driver Category" name="driverCategory" typeRef="string">
+      <output id="OutputClause_1l0h1gz" label="Driver Category" name="driverCategoryName" typeRef="string">
         <outputValues id="UnaryTests_0uln9g3">
           <text>"novice driver","senior driver","typical driver"</text>
         </outputValues>

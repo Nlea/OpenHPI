@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.4">
   <bpmn:collaboration id="Collaboration_1a9dmei">
     <bpmn:participant id="OpenHPIPool" name="Car-Insurance Company" processRef="OpenHPI" />
   </bpmn:collaboration>
@@ -13,24 +13,24 @@
         <bpmn:flowNodeRef>IntermediateCatchEvent_18rw1wj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1azfldk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1hcbcaf</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_0binkn9</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_1ncvxcs</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_1ac0995</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_15eyi6w</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_1l2tzfg</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_1xubfhf</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_0dplocl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0fn42rg</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1tgzfov</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_0ojsrcb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>IntermediateCatchEvent_0moakrh</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>IntermediateCatchEvent_0ssg9aj</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1ncvxcs</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0binkn9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1ac0995</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0dplocl</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0v698km" name="Manager">
         <bpmn:flowNodeRef>Task_0bo7a6q</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1v46h1r" name="Eligible?" gatewayDirection="Diverging">
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1v46h1r" name="Eligible?" gatewayDirection="Diverging" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_1osxifu</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1g5xhp1</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1q8se5e</bpmn:outgoing>
@@ -64,56 +64,18 @@
       <bpmn:outgoing>SequenceFlow_1ak18zj</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_046tr41</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:dataObjectReference id="DataObjectReference_1l4apw8" name="annual&#10;premium " dataObjectRef="DataObject_1a6okm9" />
-    <bpmn:dataObject id="DataObject_1a6okm9" />
     <bpmn:endEvent id="EndEvent_1hcbcaf" name="Car insured">
       <bpmn:incoming>SequenceFlow_0o7r997</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_0binkn9" name="Create and send insurance contract">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="name" label="Name" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="email" label="E-mail Adress" type="string">
-            <camunda:validation>
-              <camunda:constraint name="readonly" config="true" />
-            </camunda:validation>
-          </camunda:formField>
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0xyho2e</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1pb4y0h</bpmn:outgoing>
-      <bpmn:ioSpecification>
-        <bpmn:dataInput />
-        <bpmn:inputSet name="DefaultInputSet" />
-        <bpmn:outputSet name="DefaultOutputSet" />
-      </bpmn:ioSpecification>
-      <bpmn:property id="Property_1xyunun" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_15tysjq">
-        <bpmn:sourceRef>DataObjectReference_1l4apw8</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1xyunun</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-    </bpmn:userTask>
-    <bpmn:userTask id="Task_1ncvxcs" name="Send reminder">
-      <bpmn:incoming>SequenceFlow_0f9cb5o</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0vmuake</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:userTask id="Task_1ac0995" name="Activate contract in system">
-      <bpmn:incoming>SequenceFlow_12bzx23</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0o7r997</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:userTask id="Task_15eyi6w" name="Prepare letter of rejection">
       <bpmn:incoming>SequenceFlow_1ak18zj</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hwxen2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:businessRuleTask id="ServiceTask_1l2tzfg" name="Check qualification for insurability" camunda:asyncBefore="true" implementation="##WebService" camunda:resultVariable="automobileEligibility" camunda:decisionRef="automobileEligibility" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="ServiceTask_1l2tzfg" name="Check qualification for insurability" camunda:asyncBefore="true" implementation="##WebService" camunda:resultVariable="eligibiltyScoring" camunda:decisionRef="insuranceEligibility" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>SequenceFlow_158p9kz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1osxifu</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="ServiceTask_1xubfhf" name="Calculate &#10;annual premium" implementation="##WebService" camunda:resultVariable="driverPremium" camunda:decisionRef="calculateAnnualPremium" camunda:mapDecisionResult="singleEntry">
+    <bpmn:businessRuleTask id="ServiceTask_1xubfhf" name="Calculate &#10;annual premium" camunda:asyncBefore="true" implementation="##WebService" camunda:resultVariable="driverPremium" camunda:decisionRef="calculatePremium" camunda:mapDecisionResult="singleEntry">
       <bpmn:incoming>SequenceFlow_0navlkp</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0xyho2e</bpmn:outgoing>
       <bpmn:ioSpecification>
@@ -125,9 +87,6 @@
         <bpmn:targetRef>DataObjectReference_1l4apw8</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:businessRuleTask>
-    <bpmn:endEvent id="EndEvent_0dplocl">
-      <bpmn:incoming>SequenceFlow_1gj0qw0</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:userTask id="Task_0bo7a6q" name="review &#10;of the case">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -148,36 +107,44 @@
         <camunda:formData>
           <camunda:formField id="name" label="Name" type="string" />
           <camunda:formField id="email" label="E.mail Adresse" type="string" />
-          <camunda:formField id="injuryCategory" label="Potential Occupant Injury  Category" type="enum">
-            <camunda:value id="low" name="low" />
-            <camunda:value id="medium" name="medium" />
-            <camunda:value id="high" name="high" />
-            <camunda:value id="extremlyHigh" name="extremly high" />
+          <camunda:formField id="highTheftProbability" label="Listed as high chance of theft?" type="boolean" />
+          <camunda:formField id="carsValue" label="What is the total value of the car?" type="long" />
+          <camunda:formField id="airbag" label="What kind of airbag does the car provide?" type="enum">
+            <camunda:value id="no_airbags" name="No Airbag" />
+            <camunda:value id="drivers_airbag" name="Drivers Aribag" />
+            <camunda:value id="drivers_and_front_passanger_airbags" name="Driver and Front Airbag" />
+            <camunda:value id="front_complete_and_side_panel_airbags" name="Front and Side Airbags" />
           </camunda:formField>
-          <camunda:formField id="theftRating" label="Is the potential theft rating high?" type="boolean" />
-          <camunda:formField id="driverCategory" label="Driver Category" type="enum">
-            <camunda:value id="novice" name="Novice Driver" />
-            <camunda:value id="senior" name="Senior Driver" />
-          </camunda:formField>
-          <camunda:formField id="countryOfIssue" label="Country of issue (driver licence)" type="enum">
-            <camunda:value id="eu" name="EU Drivers licence" />
+          <camunda:formField id="dui" label="Does the applicant have a DUI?" type="boolean" />
+          <camunda:formField id="accidents" label="Number of accidents the driver has been invovled in" type="long" defaultValue="0" />
+          <camunda:formField id="violations" label="Number of traffic violations" type="long" defaultValue="0" />
+          <camunda:formField id="safeDriverTraining" label="Has the driver completed safety training?" type="boolean" />
+          <camunda:formField id="age" label="Age of driver" type="long" />
+          <camunda:formField id="countryOfIssue" label="Which Country Issued your Driving licence?" type="enum">
             <camunda:value id="USA" name="USA" />
+            <camunda:value id="EU" name="EU" />
             <camunda:value id="Switzerland" name="Switzerland" />
-            <camunda:value id="restOfTheWorld" name="The rest of the world" />
+            <camunda:value id="restOfTheWorld" name="Rest of the world" />
           </camunda:formField>
+          <camunda:formField id="carType" label="What type of car is it?" type="enum">
+            <camunda:value id="compact" name="Compact" />
+            <camunda:value id="sedan" name="Sedan" />
+            <camunda:value id="luxury" name="Luxury" />
+          </camunda:formField>
+          <camunda:formField id="ageOfCar" label="How many years old is the car?" type="long" defaultValue="0" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_158p9kz</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1n5gg28" sourceRef="Task_0bo7a6q" targetRef="ExclusiveGateway_1azfldk" />
     <bpmn:sequenceFlow id="SequenceFlow_1gj0qw0" name="not eligible" sourceRef="ExclusiveGateway_1v46h1r" targetRef="EndEvent_0dplocl">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{automobileEligibility == "not eligible"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{eligibiltyScoring == "not eligible"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_158p9kz" sourceRef="StartEvent_0ojsrcb" targetRef="ServiceTask_1l2tzfg" />
     <bpmn:sequenceFlow id="SequenceFlow_1osxifu" sourceRef="ServiceTask_1l2tzfg" targetRef="ExclusiveGateway_1v46h1r" />
     <bpmn:sequenceFlow id="SequenceFlow_0o7r997" sourceRef="Task_1ac0995" targetRef="EndEvent_1hcbcaf" />
     <bpmn:sequenceFlow id="SequenceFlow_1q8se5e" name="eligible" sourceRef="ExclusiveGateway_1v46h1r" targetRef="ExclusiveGateway_0jtsgry">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{automobileEligibility == "eligible"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{eligibiltyScoring == "eligible"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0navlkp" sourceRef="ExclusiveGateway_0jtsgry" targetRef="ServiceTask_1xubfhf" />
     <bpmn:sequenceFlow id="SequenceFlow_0xyho2e" sourceRef="ServiceTask_1xubfhf" targetRef="Task_0binkn9" />
@@ -192,7 +159,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0vmuake" sourceRef="Task_1ncvxcs" targetRef="ExclusiveGateway_1h2t9ui" />
     <bpmn:sequenceFlow id="SequenceFlow_1cqlhuk" sourceRef="IntermediateCatchEvent_0moakrh" targetRef="EndEvent_0fn42rg" />
     <bpmn:sequenceFlow id="SequenceFlow_1g5xhp1" name="review &#10;necessary" sourceRef="ExclusiveGateway_1v46h1r" targetRef="Task_0bo7a6q">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{automobileEligibility== "provisional"}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{eligibiltyScoring == "review"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_046tr41" name="yes" sourceRef="ExclusiveGateway_1azfldk" targetRef="ExclusiveGateway_0jtsgry">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{approved}</bpmn:conditionExpression>
@@ -210,6 +177,33 @@
       <bpmn:outgoing>SequenceFlow_12bzx23</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_0nkod82" />
     </bpmn:intermediateCatchEvent>
+    <bpmn:sendTask id="Task_1ncvxcs" name="Send reminder" camunda:class="Camunda.OpenHPI.LoggerDelegate">
+      <bpmn:incoming>SequenceFlow_0f9cb5o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0vmuake</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:serviceTask id="Task_0binkn9" name="Create and send insurance contract" camunda:class="Camunda.OpenHPI.LoggerDelegate">
+      <bpmn:incoming>SequenceFlow_0xyho2e</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1pb4y0h</bpmn:outgoing>
+      <bpmn:ioSpecification>
+        <bpmn:dataInput />
+        <bpmn:inputSet name="DefaultInputSet" />
+        <bpmn:outputSet name="DefaultOutputSet" />
+      </bpmn:ioSpecification>
+      <bpmn:property id="Property_1phiroi" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_15tysjq">
+        <bpmn:sourceRef>DataObjectReference_1l4apw8</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1phiroi</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_1ac0995" name="Activate contract in system" camunda:class="Camunda.OpenHPI.LoggerDelegate">
+      <bpmn:incoming>SequenceFlow_12bzx23</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0o7r997</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:dataObjectReference id="DataObjectReference_1l4apw8" name="annual&#10;premium " dataObjectRef="DataObject_1a6okm9" />
+    <bpmn:dataObject id="DataObject_1a6okm9" />
+    <bpmn:endEvent id="EndEvent_0dplocl">
+      <bpmn:incoming>SequenceFlow_1gj0qw0</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:textAnnotation id="TextAnnotation_16p1111">
       <bpmn:text>Name of the applicant
 E-mail Adress
@@ -269,9 +263,9 @@ Country of issue</bpmn:text>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_1l4apw8_di" bpmnElement="DataObjectReference_1l4apw8" bioc:stroke="#000" bioc:fill="#fff">
-        <dc:Bounds x="1506" y="229" width="88" height="97" />
+        <dc:Bounds x="1494" y="186" width="88" height="97" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1529" y="264" width="43" height="27" />
+          <dc:Bounds x="1517" y="221" width="43" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1ak18zj_di" bpmnElement="SequenceFlow_1ak18zj" bioc:stroke="#000" bioc:fill="#fff">
@@ -305,7 +299,7 @@ Country of issue</bpmn:text>
         <di:waypoint x="2149" y="278" />
         <di:waypoint x="2149" y="200" />
         <di:waypoint x="1763" y="200" />
-        <di:waypoint x="1763" y="355" />
+        <di:waypoint x="1763" y="356" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0q7ihez_di" bpmnElement="SequenceFlow_0q7ihez">
         <di:waypoint x="1782" y="376" />
@@ -338,8 +332,8 @@ Country of issue</bpmn:text>
         <di:waypoint x="1909" y="488" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1pb4y0h_di" bpmnElement="SequenceFlow_1pb4y0h">
-        <di:waypoint x="1696" y="375" />
-        <di:waypoint x="1742" y="376" />
+        <di:waypoint x="1685" y="375" />
+        <di:waypoint x="1743" y="376" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0xyho2e_di" bpmnElement="SequenceFlow_0xyho2e">
         <di:waypoint x="1488" y="375" />
@@ -359,26 +353,17 @@ Country of issue</bpmn:text>
       <bpmndi:BPMNEdge id="DataOutputAssociation_032pruc_di" bpmnElement="DataOutputAssociation_032pruc">
         <di:waypoint x="1438" y="335" />
         <di:waypoint x="1438" y="278" />
-        <di:waypoint x="1506" y="278" />
+        <di:waypoint x="1494" y="254" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_15tysjq_di" bpmnElement="DataInputAssociation_15tysjq">
-        <di:waypoint x="1594" y="278" />
+        <di:waypoint x="1582" y="255" />
         <di:waypoint x="1635" y="278" />
         <di:waypoint x="1635" y="335" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_06n1ty1_di" bpmnElement="Task_0binkn9">
-        <dc:Bounds x="1585" y="335" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0o7r997_di" bpmnElement="SequenceFlow_0o7r997">
         <di:waypoint x="2114" y="488" />
         <di:waypoint x="2241" y="488" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_12flxd1_di" bpmnElement="Task_1ncvxcs">
-        <dc:Bounds x="2014" y="238" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_0smvzvz_di" bpmnElement="Task_1ac0995">
-        <dc:Bounds x="2014" y="448" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_1itxlio_di" bpmnElement="Task_15eyi6w">
         <dc:Bounds x="2014" y="573" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -451,6 +436,15 @@ Country of issue</bpmn:text>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1883" y="505" width="90" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_0kp0dw1_di" bpmnElement="Task_1ncvxcs">
+        <dc:Bounds x="2014" y="238" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1gygp6h_di" bpmnElement="Task_0binkn9">
+        <dc:Bounds x="1585" y="335" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0dyx5ec_di" bpmnElement="Task_1ac0995">
+        <dc:Bounds x="2014" y="448" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
