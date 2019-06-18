@@ -28,6 +28,8 @@ public class LoggerDelegate implements JavaDelegate {
             + ", executionId=" + execution.getId()
             + " \n\n");
     
+    execution.setVariable("someVar", 1);
+    
   }
 
 }
